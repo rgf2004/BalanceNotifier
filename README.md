@@ -4,7 +4,8 @@ This is a telegram bot that monitors your wallet balance and informs you with an
 
 it has been created to be notify you once the payout of your master nodes is done
 
-currently it supports Eternity and Arctic coins, becasue I've masternodes in those coins, but I'll add more coins later,
+There is already a running instance of this application you can directly use it by following the below steps 
+
 Steps :
 1- go to this link
 
@@ -21,5 +22,17 @@ be sure to add the correct address as till now the bot doesn't allow modifying t
 
 6- Bot will monitor the address' balance and will notify you once payout or withdraw done to this address.
 
+currently it supports Eternity and Arctic coins, becasue I've masternodes in those coins, but I'll add more coins later,
+
+
 Note:
 your balance is safe and Bot can't do any withdraw from your address
+
+
+## Donations :moneybag:
+
+If you want you can donate to:
+
+```
+- [ Bitcoin ] 1PfnwEdmU3Ki9htakiv4tciPXzo49RRkai
+```
