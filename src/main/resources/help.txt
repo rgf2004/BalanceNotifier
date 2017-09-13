@@ -1,0 +1,17 @@
+This is a telegram Bot that monitors your wallet balance and informs you with any deposit/withdraw done
+
+Steps :
+ 
+1- press start then /add_address and follow the steps
+
+2- Select Wallet Type
+
+3- Enter Address Label (any label you want)
+
+5- Enter wallet public address be sure to add the correct address as till now the Bot doesn't allow modifying the address after adding it
+
+6- Bot will monitor the address' balance and will notify you once and deposit or withdraw done to this address.
+
+currently it supports Eternity and Arctic coins, because I've master nodes in those coins, but I'll add more coins later,
+
+Note: your balance is safe and Bot can't do any withdraw from your address

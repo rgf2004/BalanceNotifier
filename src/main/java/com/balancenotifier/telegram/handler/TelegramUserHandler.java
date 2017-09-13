@@ -1,5 +1,11 @@
 package com.balancenotifier.telegram.handler;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -61,7 +67,7 @@ public class TelegramUserHandler {
 						.getBalance(wallet.getAddressString());
 
 				Wallet walletBean = new Wallet(wallet, balance);
-				
+
 				user.getWallets().put(wallet.getAddressString(), walletBean);
 			});
 
@@ -103,6 +109,14 @@ public class TelegramUserHandler {
 				UserCommand command = UserCommand.fromString(update.getMessage().getText());
 
 				switch (command) {
+
+				case START:
+					handleHelpCommand(user);
+					break;
+
+				case HELP:
+					handleHelpCommand(user);
+					break;
 
 				case ADD_NEW_ADDRESS:
 					user.backupUserStatus();
@@ -217,7 +231,8 @@ public class TelegramUserHandler {
 
 			walletHandler.saveWalletAddress(wallet);
 
-			message = String.format("Address has been added to your account, please note that in case address is not correct balance will be Zero");
+			message = String.format(
+					"Address has been added to your account, please note that in case address is not correct balance will be Zero");
 			telegramBot.sendMessage(user.getUserChatID(), message, null);
 
 		} catch (Exception e) {
@@ -236,16 +251,7 @@ public class TelegramUserHandler {
 
 		if (user != null) // start adding profile process
 		{
-			String message = "";
-			message = String.format("In order to use this bot, you should add at one wallet address");
-
-			telegramBot.sendMessage(user.getUserChatID(), message, null);
-
-			message = String
-					.format("When you have your wallet address please type command /add_address and follow the steps");
-
-			telegramBot.sendMessage(user.getUserChatID(), message, null);
-
+			handleHelpCommand(user);
 		}
 	}
 
@@ -298,23 +304,38 @@ public class TelegramUserHandler {
 		}
 	}
 
+	public void handleHelpCommand(User user) {
+		try {
+
+			Path path = Paths.get(getClass().getClassLoader().getResource("help.txt").toURI());
+			List<String> lines = Files.readAllLines(path,StandardCharsets.UTF_8);
+			
+			StringBuffer strBuffer = new StringBuffer();
+			for (String line : lines)
+				strBuffer.append(line).append("\n");
+			
+			telegramBot.sendMessage(user.getUserChatID(), strBuffer.toString(), null);
+			
+		} catch (IOException | URISyntaxException e) {
+			logger.error("Error Occured", e);
+		}
+	}
+
 	public Map<Long, User> getUsers() {
 		return new HashMap<>(users);
 	}
-	
-	public void updateUserBalance(long chatID, Wallet wallet, double balance) 
-	{		
+
+	public void updateUserBalance(long chatID, Wallet wallet, double balance) {
 		users.get(chatID).getWallets().get(wallet.getWalletModel().getAddressString()).setBalance(balance);
 	}
-	
-	public void updateUserZeroBalanceRetry(long chatID, Wallet wallet) 
-	{		
-		int retries = users.get(chatID).getWallets().get(wallet.getWalletModel().getAddressString()).getZeroBalanceRetries();
+
+	public void updateUserZeroBalanceRetry(long chatID, Wallet wallet) {
+		int retries = users.get(chatID).getWallets().get(wallet.getWalletModel().getAddressString())
+				.getZeroBalanceRetries();
 		users.get(chatID).getWallets().get(wallet.getWalletModel().getAddressString()).setZeroBalanceRetries(++retries);
 	}
-	
-	public void resetUserZeroBalanceRetry(long chatID, Wallet wallet) 
-	{		
+
+	public void resetUserZeroBalanceRetry(long chatID, Wallet wallet) {
 		users.get(chatID).getWallets().get(wallet.getWalletModel().getAddressString()).setZeroBalanceRetries(0);
 	}
 

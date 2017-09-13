@@ -1,6 +1,8 @@
 package com.balancenotifier.telegram.bot;
 
 public enum UserCommand {
+	START("/start"),
+	HELP("/help"),
 	ADD_NEW_ADDRESS("/add_address"),	
 	VERSION("/version"),
 	CONTACTUS("/contact");

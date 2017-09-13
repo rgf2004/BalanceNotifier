@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Service	
 public class ConfigUtil {
 
-	private static String VERSION = "Version: 1.0.1";
+	private static String VERSION = "Version: 1.0.2";
 	
 	@Autowired
 	private Environment env;
