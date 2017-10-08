@@ -3,7 +3,10 @@ package com.balancenotifier.telegram.handler;
 public enum WalletType {
 
 	ENT("Eternity"),
-	ARC("Arctic");
+	ARC("Arctic"),
+	CHC("ChainCoin"),
+	SYNX("Syndicate"),
+	DAS("Das");
 //	ARC("Arctic");
 
 	

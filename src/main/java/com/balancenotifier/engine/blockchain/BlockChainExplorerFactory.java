@@ -23,6 +23,18 @@ public class BlockChainExplorerFactory {
 		
 		case ARC:
 			return explorers.get("arcticBlockChainExplorer");
+			
+		case CHC:
+			return explorers.get("chainCoinBlockChainExplorer");
+			
+		case SYNX:
+			return explorers.get("synxBlockChainExplorer");
+			
+		case DAS:
+			return explorers.get("dasBlockChainExplorer");
+			
+		default:
+			break;
 		
 		};
 		

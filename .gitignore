@@ -51,3 +51,4 @@ dependency-reduced-pom.xml
 
 # Application.properties #
 application.properties
+/bin/
